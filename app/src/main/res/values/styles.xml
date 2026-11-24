@@ -86,34 +86,13 @@
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:textColorHint">@color/text_secondary</item>
     </style>
-    <style name="ThemeOption" parent="android:style/Widget.Material.CompoundButton.RadioButton">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">@dimen/touch_target</item>
-        <item name="android:paddingStart">@dimen/space_small</item>
-        <item name="android:paddingEnd">@dimen/space_small</item>
-        <item name="android:textSize">@dimen/text_button</item>
-        <item name="android:textColor">@color/text_primary</item>
-        <item name="android:buttonTint">@color/theme_option_tint</item>
-        <item name="android:background">?android:attr/selectableItemBackground</item>
-        <item name="android:saveEnabled">false</item>
-    </style>
     <style name="DialogButton" parent="ActionButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:minWidth">@dimen/dialog_button_width</item>
         <item name="android:layout_marginTop">0dp</item>
     </style>
-    <style name="ThemeOverlay.AutoClicker.Popup" parent="">
-        <item name="android:popupMenuStyle">@style/PopupMenuStyle</item>
-        <item name="android:textAppearanceLargePopupMenu">@style/PopupMenuText</item>
-        <item name="android:textAppearanceSmallPopupMenu">@style/PopupMenuText</item>
-    </style>
     <style name="PopupMenuStyle" parent="android:style/Widget.Material.PopupMenu">
         <item name="android:popupBackground">@drawable/background_popup</item>
         <item name="android:popupElevation">@dimen/space_small</item>
-    </style>
-    <style name="PopupMenuText" parent="android:style/TextAppearance.Material.Menu">
-        <item name="android:textSize">@dimen/text_button</item>
-        <item name="android:textColor">@color/text_primary</item>
     </style>
 </resources>

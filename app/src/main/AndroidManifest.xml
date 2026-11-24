@@ -11,23 +11,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AutoClicker">
         <activity
-            android:name=".PrivacyActivity"
+            android:name=".modules.privacy.PrivacyActivity"
             android:exported="false"
             android:label="@string/privacy_title" />
         <activity
-            android:name=".ThemeSettingsActivity"
+            android:name=".modules.theme.ThemeSettingsActivity"
             android:exported="false"
             android:label="@string/theme_settings_title" />
         <activity
+            android:name=".modules.main.MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
+        <activity-alias
             android:name=".MainActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:targetActivity=".modules.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
         <service
             android:name=".service.ClickerAccessibilityService"
             android:exported="true"

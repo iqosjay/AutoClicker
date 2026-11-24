@@ -15,7 +15,7 @@
         android:minHeight="@dimen/touch_target"
         android:paddingTop="@dimen/space_small"
         android:paddingBottom="@dimen/space_small"
-        android:text="@string/github_repository_address"
+        android:text="@string/github_repository_url"
         android:textColor="?attr/color_action"
         android:textSize="@dimen/text_button" />
     <TextView style="@style/FieldLabel" android:text="@string/contact_title" />

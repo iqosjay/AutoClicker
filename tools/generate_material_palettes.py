@@ -118,7 +118,7 @@ def generate():
   colors_xml = header.copy()
   labels_xml = header.copy()
   styles = {False: header.copy(), True: header.copy()}
-  kotlin = ["package com.roy.autoclicker.theme", "", "import com.roy.autoclicker.R", "",
+  kotlin = ["package com.roy.autoclicker.modules.theme", "", "import com.roy.autoclicker.R", "",
             "// 由 tools/generate_material_palettes.py 生成，色值来源见 material_palette_source.json。",
             "internal val GENERATED_MATERIAL_FAMILIES = listOf("]
   for family in families:
@@ -159,7 +159,7 @@ def generate():
   write('app/src/main/res/values/material_palette_labels.xml', labels_xml)
   write('app/src/main/res/values/material_palette_themes.xml', styles[False])
   write('app/src/main/res/values-night/material_palette_themes.xml', styles[True])
-  write('app/src/main/java/com/roy/autoclicker/theme/MaterialPaletteData.kt', kotlin)
+  write('app/src/main/java/com/roy/autoclicker/modules/theme/MaterialPaletteData.kt', kotlin)
   print('Generated 256 official colors, 21 color families, and 256 light/dark theme overlays.')
 
 

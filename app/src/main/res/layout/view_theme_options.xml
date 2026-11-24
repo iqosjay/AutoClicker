@@ -20,18 +20,6 @@
 
     <TextView
         style="@style/ThemeSectionTitle"
-        android:layout_marginTop="@dimen/space_medium"
-        android:text="@string/palette_title" />
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_small"
-        android:orientation="vertical">
-        <RadioButton android:id="@+id/palette_system" style="@style/ThemeOption" android:text="@string/palette_system" />
-    </RadioGroup>
-    <TextView style="@style/BodyText" android:text="@string/palette_system_note" />
-    <TextView
-        style="@style/ThemeSectionTitle"
         android:layout_marginTop="@dimen/space_large"
         android:text="@string/palette_material_title" />
     <TextView

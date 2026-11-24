@@ -14,14 +14,13 @@
     <string name="theme_light">亮色</string>
     <string name="theme_dark">暗色</string>
     <string name="palette_note">轻点色块即可应用，勾号表示当前选择。</string>
-    <string name="help_permissions_body">到系统无障碍设置中启用「连点器」，等待服务连接后即可显示悬浮控制，无需额外授予悬浮窗权限。右上角「设置」可调整频率与自动停止时间；「主题设置」可选择显示模式和配色；「隐私政策」可随时查看权限用途和本地数据说明。</string>
+    <string name="help_permissions_body">到系统无障碍设置中启用「连点器」，等待服务连接后即可显示悬浮控制，无需额外授予悬浮窗权限。右上角「设置」可调整频率与自动停止时间；「主题」可选择显示模式和配色；「隐私政策」可随时查看权限用途和本地数据说明。</string>
     <string name="disclaimer_title">免责声明</string>
     <string name="disclaimer_body">本工具用于用户主动授权的重复点击操作。请仅在你有权操作且允许自动化的场景下使用，并遵守目标应用或游戏的使用规则。\n\n使用前请确认点击位置、频率与持续时间。实际效果受设备、系统和目标应用影响，不保证达到设定频率或适用于所有场景。请自行评估和承担误操作、账号限制及其他使用风险。\n\n本工具不读取屏幕内容，也不代替用户作出操作决定。发现异常时，请立即通过音量键或锁屏停止。</string>
     <string name="contact_title">联系邮箱</string>
     <string name="contact_email" translatable="false">iqosjay@gmail.com</string>
     <string name="email_app_unavailable">无法打开邮件应用，请确认已安装可用的邮件应用</string>
     <string name="github_repository_title">GitHub 开源地址</string>
-    <string name="github_repository_address" translatable="false">git@github.com:iqosjay/AutoClicker.git</string>
     <string name="github_repository_url" translatable="false">https://github.com/iqosjay/AutoClicker</string>
     <string name="browser_unavailable">无法打开浏览器，请确认已安装可用的浏览器</string>
     <string name="permissions_title">开启无障碍服务</string>

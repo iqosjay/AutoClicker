@@ -8,12 +8,12 @@
     <color name="text_primary">#DEFFFFFF</color>
     <color name="text_secondary">#99FFFFFF</color>
     <color name="text_disabled">#77757B</color>
-    <color name="color_primary">@color/auto_primary</color>
-    <color name="color_primary_dark">@color/auto_primary</color>
-    <color name="color_accent">@color/auto_primary</color>
-    <color name="color_action">@color/auto_primary</color>
-    <color name="on_accent">@color/auto_on_primary</color>
+    <color name="color_primary">@color/material_indigo_500</color>
+    <color name="color_primary_dark">@color/material_indigo_500</color>
+    <color name="color_accent">@color/material_indigo_200</color>
+    <color name="color_action">@color/material_indigo_200</color>
+    <color name="on_accent">@android:color/black</color>
     <color name="ripple">#28FFFFFF</color>
-    <color name="ripple_on_accent">@color/auto_ripple</color>
+    <color name="ripple_on_accent">#18000000</color>
     <color name="danger">#FFB4AB</color>
 </resources>

@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="privacy_title">隐私政策</string>
-    <string name="privacy_acknowledge">我已了解</string>
+    <string name="privacy_agree">我同意</string>
+    <string name="privacy_exit">退出</string>
     <string name="privacy_intro">连点器是一款无需注册和登录的单机工具。应用不申请网络访问权限，不包含广告、统计或联网 SDK，不主动收集或上传个人信息。</string>
     <string name="privacy_permission_title">需要什么权限，为什么需要？</string>
-    <string name="privacy_permission_body">唯一需要你手动开启的是无障碍服务，用于以下功能：\n\n1. 按你设置的位置和频率，在其他应用中执行模拟点击。\n2. 显示可拖动的悬浮控制按钮，供你定位、开始和停止。\n3. 在连点期间识别音量键，作为紧急停止入口。\n\n悬浮控制通过无障碍服务显示，无需另外授予“显示在其他应用上层”权限。阅读或关闭本政策不会代替你授予任何系统权限。</string>
+    <string name="privacy_permission_body">唯一需要你手动开启的是无障碍服务，用于以下功能：\n\n1. 按你设置的位置和频率，在其他应用中执行模拟点击。\n2. 显示可拖动的悬浮控制按钮，供你定位、开始和停止。\n3. 在连点期间识别音量键，作为紧急停止入口。\n\n悬浮控制通过无障碍服务显示，无需另外授予“显示在其他应用上层”权限。点击“我同意”仅表示同意本政策，不会自动授予任何系统权限。</string>
     <string name="privacy_scope_title">权限的使用范围</string>
     <string name="privacy_scope_body">应用不请求读取窗口内容或截屏的无障碍能力，不订阅其他应用的界面事件，不读取屏幕文字、密码、聊天记录或通知内容。按键回调仅用于音量键停止，不记录输入内容，其他按键交还系统处理。\n\n应用不申请定位、相机、麦克风、联系人、电话、短信、存储或网络访问权限，不自动修改系统设置。</string>
     <string name="privacy_storage_title">本机保存的数据</string>
-    <string name="privacy_storage_body">仅在本机应用私有目录保存点击频率、自动停止时限、显示模式、配色和隐私提示的查看状态。点击坐标及停止按键状态只在运行期间的内存中处理。\n\n本应用关闭系统云备份，并将应用数据排除在系统备份与设备迁移之外。你可以通过系统设置清除本应用数据，或卸载应用，删除本地设置。</string>
+    <string name="privacy_storage_body">仅在本机应用私有目录保存点击频率、自动停止时限、显示模式、配色和隐私政策的同意状态。点击坐标及停止按键状态只在运行期间的内存中处理。\n\n本应用关闭系统云备份，并将应用数据排除在系统备份与设备迁移之外。你可以通过系统设置清除本应用数据，或卸载应用，删除本地设置。</string>
     <string name="privacy_control_title">你可以随时控制</string>
     <string name="privacy_control_body">是否开启无障碍服务由你决定，未开启时仍可查看本应用的说明和主题设置，但无法执行连点。你可以随时在系统无障碍设置中关闭本服务。\n\n连点时可按悬浮按钮稍偏离圆心的位置、音量键或锁屏停止，达到设定时限也会自动停止。停止后不会自行恢复。</string>
     <string name="privacy_external_title">外部链接与联系</string>
-    <string name="privacy_external_body">只有在你主动点击关于页面中的开源地址或邮箱时，才会打开外部浏览器或邮件应用。外部应用可能访问网络，并按各自的隐私政策处理数据；连点器本身不会因此建立网络连接。\n\n如有隐私相关问题，可通过以下邮箱联系开发者。</string>
+    <string name="privacy_external_body">只有在你主动点击关于页面中的开源地址，或关于、隐私政策页面中的邮箱时，才会打开外部浏览器或邮件应用。外部应用可能访问网络，并按各自的隐私政策处理数据；连点器本身不会因此建立网络连接。\n\n如有隐私相关问题，可通过以下邮箱联系开发者。</string>
 </resources>

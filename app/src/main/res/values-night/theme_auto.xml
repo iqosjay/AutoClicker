@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="auto_primary">@color/material_indigo_200</color>
-    <color name="auto_on_primary">@android:color/black</color>
-    <color name="auto_ripple">#18000000</color>
-    <bool name="auto_light_status_bar">true</bool>
-</resources>
