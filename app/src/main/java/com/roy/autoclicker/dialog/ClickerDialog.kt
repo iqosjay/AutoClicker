@@ -4,30 +4,21 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Paint
-import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
-import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
-import android.widget.RadioGroup
-import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import com.roy.autoclicker.ClickerSettings
 import com.roy.autoclicker.R
-import com.roy.autoclicker.adapter.PaletteChoice
-import com.roy.autoclicker.adapter.PaletteChoiceAdapter
-import com.roy.autoclicker.theme.MaterialFamily
 import com.roy.autoclicker.theme.MaterialPalette
-import com.roy.autoclicker.theme.MaterialSwatch
 import com.roy.autoclicker.utils.ViewUtils.setClickAction
-import java.util.Locale
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -41,7 +32,6 @@ class ClickerDialog private constructor(builder: Builder) : Dialog(builder.activ
   private var continuation: Continuation<Int>? = null
   private var resultCode = RESULT_DISMISSED
   private var awaited = false
-  private var displayedFamilyId = ""
 
   private lateinit var titleView: TextView      // 弹窗标题
   private lateinit var contentView: FrameLayout // 对应弹窗的内容容器
@@ -49,11 +39,7 @@ class ClickerDialog private constructor(builder: Builder) : Dialog(builder.activ
   private lateinit var buttonCancel: Button     // 放弃未保存的修改
   private lateinit var inputFrequency: EditText // 目标点击频率
   private lateinit var inputDuration: EditText  // 自动停止时间
-  private lateinit var themeOptions: RadioGroup // 主题选择
   private lateinit var textEmail: TextView      // 联系邮箱入口
-  private lateinit var paletteFamily: Spinner  // 官方色系选择
-  private lateinit var paletteTone: Spinner    // 当前色系的完整色阶
-  private lateinit var palettePreview: TextView // 所选颜色及色值预览
 
   init {
     MaterialPalette.applyTheme(context, settings.paletteId)
@@ -112,15 +98,6 @@ class ClickerDialog private constructor(builder: Builder) : Dialog(builder.activ
     }
   }
 
-  override fun onSaveInstanceState(): Bundle {
-    return super.onSaveInstanceState().apply {
-      if (SCREEN_SETTINGS == screen) {
-        // 色系改变会替换色阶适配器，单独保存稳定 ID，避免重建时只恢复下拉位置而丢失颜色。
-        putString(STATE_PALETTE_ID, selectedSwatch().id)
-      }
-    }
-  }
-
   suspend fun await(): Int = suspendCoroutine { pending ->
     check(!awaited)
     awaited = true
@@ -146,7 +123,6 @@ class ClickerDialog private constructor(builder: Builder) : Dialog(builder.activ
   private fun configureSettings() {
     inputFrequency = findViewById(R.id.input_frequency)
     inputDuration = findViewById(R.id.input_duration)
-    themeOptions = findViewById(R.id.theme_options)
     inputFrequency.setText(settings.frequency.toString())
     inputDuration.let {
       it.setText(settings.durationSeconds.toString())
@@ -159,101 +135,7 @@ class ClickerDialog private constructor(builder: Builder) : Dialog(builder.activ
         }
       }
     }
-    themeOptions.check(when (settings.themeMode) {
-      ClickerSettings.THEME_LIGHT -> R.id.theme_light
-      ClickerSettings.THEME_DARK  -> R.id.theme_dark
-      else                       -> R.id.theme_system
-    })
-    configurePalette()
   }
-
-  private fun configurePalette() {
-    paletteFamily = findViewById(R.id.palette_family)
-    paletteTone = findViewById(R.id.palette_tone)
-    palettePreview = findViewById(R.id.palette_preview)
-    val selected = MaterialPalette.find(restoredState?.getString(STATE_PALETTE_ID) ?: settings.paletteId)
-    val familyIndex = MaterialPalette.familyIndex(selected.id)
-    val options = MaterialPalette.families.map { family ->
-      val sample = family.swatches.firstOrNull { "500" == it.tone } ?: family.swatches.first()
-      PaletteChoice(family.id, context.getString(family.nameResource), context.getColor(sample.colorResource))
-    }
-    paletteFamily.let {
-      it.adapter = PaletteChoiceAdapter(context, options)
-      it.setSelection(familyIndex)
-    }
-    updateToneOptions(MaterialPalette.families[familyIndex], selected.id)
-    paletteFamily.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-      override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val family = MaterialPalette.families[position]
-        if (isShowing && family.id != displayedFamilyId) {
-          val preferred = family.swatches.firstOrNull { "500" == it.tone } ?: family.swatches.first()
-          updateToneOptions(family, preferred.id)
-        }
-      }
-
-      override fun onNothingSelected(parent: AdapterView<*>?) {}
-    }
-    paletteTone.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-      override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        if (isShowing) {
-          updatePalettePreview()
-        }
-      }
-
-      override fun onNothingSelected(parent: AdapterView<*>?) {}
-    }
-  }
-
-  private fun updateToneOptions(family: MaterialFamily, selectedId: String) {
-    displayedFamilyId = family.id
-    val choices = family.swatches.map { swatch ->
-      val color = context.getColor(swatch.colorResource)
-      val tone = toneLabel(swatch)
-      PaletteChoice(swatch.id, context.getString(R.string.palette_tone_item, tone, colorHex(color)), color)
-    }
-    paletteTone.let {
-      it.adapter = PaletteChoiceAdapter(context, choices)
-      it.setSelection(family.swatches.indexOfFirst { swatch -> selectedId == swatch.id }.coerceAtLeast(0))
-      it.isEnabled = 1 < family.swatches.size
-    }
-    updatePalettePreview()
-  }
-
-  private fun updatePalettePreview() {
-    val swatch = selectedSwatch()
-    val family = MaterialPalette.families[MaterialPalette.familyIndex(swatch.id)]
-    val selectedColor = context.getColor(swatch.colorResource)
-    val name = context.getString(family.nameResource)
-    val title = if (swatch.tone.isEmpty() || "Black" == swatch.tone || "White" == swatch.tone) {
-      name
-    } else {
-      "$name ${swatch.tone}"
-    }
-    palettePreview.let {
-      it.text = context.getString(R.string.palette_preview_format, title, colorHex(selectedColor))
-      it.setTextColor(MaterialPalette.textColor(selectedColor))
-      it.background = GradientDrawable().apply {
-        this.cornerRadius = context.resources.getDimension(R.dimen.corner_button)
-        setColor(selectedColor)
-      }
-    }
-  }
-
-  private fun selectedSwatch(): MaterialSwatch {
-    val choice = paletteTone.selectedItem as? PaletteChoice
-    return MaterialPalette.find(choice?.id ?: settings.paletteId)
-  }
-
-  private fun toneLabel(swatch: MaterialSwatch): String {
-    return when (swatch.tone) {
-      ""      -> context.getString(R.string.palette_default)
-      "Black" -> context.getString(R.string.palette_black)
-      "White" -> context.getString(R.string.palette_white)
-      else    -> swatch.tone
-    }
-  }
-
-  private fun colorHex(color: Int): String = String.format(Locale.ROOT, "#%06X", color and 0xFFFFFF)
 
   private fun confirm() {
     if (SCREEN_SETTINGS == screen) {
@@ -306,12 +188,7 @@ class ClickerDialog private constructor(builder: Builder) : Dialog(builder.activ
       }
       return false
     }
-    val themeMode = when (themeOptions.checkedRadioButtonId) {
-      R.id.theme_light -> ClickerSettings.THEME_LIGHT
-      R.id.theme_dark  -> ClickerSettings.THEME_DARK
-      else            -> ClickerSettings.THEME_SYSTEM
-    }
-    settings.save(frequency, duration, themeMode, selectedSwatch().id)
+    settings.saveClicking(frequency, duration)
     return true
   }
 
@@ -334,7 +211,6 @@ class ClickerDialog private constructor(builder: Builder) : Dialog(builder.activ
   }
 
   companion object {
-    private const val STATE_PALETTE_ID = "palette_id"
     const val SCREEN_SETTINGS = 1
     const val SCREEN_HELP = 2
     const val SCREEN_ABOUT = 3

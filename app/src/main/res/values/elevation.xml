@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- M2 elevation levels are independent of the 8dp spacing grid. -->
+    <dimen name="elevation_card">1dp</dimen>
+    <dimen name="elevation_button">2dp</dimen>
+    <dimen name="elevation_button_pressed">8dp</dimen>
+</resources>

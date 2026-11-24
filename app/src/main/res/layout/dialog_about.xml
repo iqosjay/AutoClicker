@@ -16,6 +16,6 @@
         android:paddingTop="@dimen/space_small"
         android:paddingBottom="@dimen/space_small"
         android:text="@string/contact_email"
-        android:textColor="?android:attr/colorAccent"
+        android:textColor="?attr/color_action"
         android:textSize="@dimen/text_button" />
 </LinearLayout>

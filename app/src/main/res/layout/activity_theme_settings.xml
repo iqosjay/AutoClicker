@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.roy.autoclicker.widget.ScreenLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_background"
+    android:orientation="vertical">
+
+    <com.roy.autoclicker.widget.Actionbar
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height"
+        android:elevation="4dp"
+        app:actionbar_title="@string/theme_settings_title" />
+
+    <ListView
+        android:id="@+id/theme_swatches"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="@dimen/space_medium"
+        android:background="@drawable/background_panel"
+        android:elevation="@dimen/elevation_card"
+        android:clipToOutline="true"
+        android:divider="@null"
+        android:drawSelectorOnTop="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:listSelector="@android:color/transparent"
+        android:saveEnabled="false"
+        android:scrollbars="vertical" />
+</com.roy.autoclicker.widget.ScreenLayout>

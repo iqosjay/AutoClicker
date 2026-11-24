@@ -18,10 +18,16 @@ class ClickerSettings(context: Context) {
   val paletteId: String
     get() = preferences.getString(KEY_PALETTE_ID, DEFAULT_PALETTE) ?: DEFAULT_PALETTE
 
-  fun save(frequency: Int, durationSeconds: Int, themeMode: Int, paletteId: String) {
+  fun saveClicking(frequency: Int, durationSeconds: Int) {
     preferences.edit()
       .putInt(KEY_FREQUENCY, frequency)
       .putInt(KEY_DURATION_SECONDS, durationSeconds)
+      .apply()
+  }
+
+  fun saveTheme(themeMode: Int, paletteId: String) {
+    require(themeMode in THEME_SYSTEM..THEME_DARK)
+    preferences.edit()
       .putInt(KEY_THEME_MODE, themeMode)
       .putString(KEY_PALETTE_ID, paletteId)
       .apply()
@@ -35,6 +41,7 @@ class ClickerSettings(context: Context) {
     private const val KEY_PALETTE_ID = "palette_id"
 
     const val DEFAULT_PALETTE = "default"
+    const val SYSTEM_PALETTE = "system"
     const val THEME_SYSTEM = 0
     const val THEME_LIGHT = 1
     const val THEME_DARK = 2

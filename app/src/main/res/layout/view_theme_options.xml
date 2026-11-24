@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/space_medium">
+
+    <TextView style="@style/ThemeSectionTitle" android:text="@string/theme_mode_title" />
+    <Spinner
+        android:id="@+id/theme_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_small"
+        android:minHeight="@dimen/touch_target"
+        android:contentDescription="@string/theme_mode_title"
+        android:saveEnabled="false"
+        android:spinnerMode="dropdown"
+        android:popupElevation="8dp"
+        android:popupBackground="@drawable/background_popup" />
+
+    <TextView
+        style="@style/ThemeSectionTitle"
+        android:layout_marginTop="@dimen/space_medium"
+        android:text="@string/palette_title" />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_small"
+        android:orientation="vertical">
+        <RadioButton android:id="@+id/palette_system" style="@style/ThemeOption" android:text="@string/palette_system" />
+        <RadioButton android:id="@+id/palette_default" style="@style/ThemeOption" android:text="@string/palette_default" />
+    </RadioGroup>
+    <TextView style="@style/BodyText" android:text="@string/palette_system_note" />
+    <TextView
+        style="@style/ThemeSectionTitle"
+        android:layout_marginTop="@dimen/space_large"
+        android:text="@string/palette_material_title" />
+    <TextView
+        android:id="@+id/palette_selection"
+        style="@style/BodyText"
+        android:lineSpacingExtra="0dp" />
+    <TextView style="@style/BodyText" android:text="@string/palette_note" />
+</LinearLayout>

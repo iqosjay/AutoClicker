@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="color_on_primary" format="color" />
+    <attr name="color_app_bar" format="color" />
+    <attr name="color_on_app_bar" format="color" />
+    <attr name="color_app_bar_ripple" format="color" />
+    <attr name="color_action" format="color" />
     <attr name="color_button_background" format="color" />
     <attr name="color_on_button" format="color" />
     <attr name="color_button_ripple" format="color" />

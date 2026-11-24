@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <objectAnimator android:duration="0" android:propertyName="elevation" android:valueTo="0dp" android:valueType="floatType" />
+    </item>
+    <item android:state_pressed="true">
+        <objectAnimator android:duration="100" android:propertyName="elevation" android:valueTo="@dimen/elevation_button_pressed" android:valueType="floatType" />
+    </item>
+    <item android:state_focused="true">
+        <objectAnimator android:duration="100" android:propertyName="elevation" android:valueTo="@dimen/elevation_button_pressed" android:valueType="floatType" />
+    </item>
+    <item>
+        <objectAnimator android:duration="100" android:propertyName="elevation" android:valueTo="@dimen/elevation_button" android:valueType="floatType" />
+    </item>
+</selector>

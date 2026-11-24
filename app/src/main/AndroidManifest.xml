@@ -13,6 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AutoClicker">
         <activity
+            android:name=".ThemeSettingsActivity"
+            android:exported="false"
+            android:label="@string/theme_settings_title" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">

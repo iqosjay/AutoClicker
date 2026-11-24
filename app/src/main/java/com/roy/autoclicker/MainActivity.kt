@@ -3,9 +3,7 @@ package com.roy.autoclicker
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,7 +12,6 @@ import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.Gravity
 import android.view.View
-import android.view.WindowInsets
 import android.widget.Button
 import android.widget.PopupMenu
 import android.widget.TextView
@@ -22,6 +19,7 @@ import android.widget.Toast
 import com.roy.autoclicker.dialog.ClickerDialog
 import com.roy.autoclicker.service.ClickerAccessibilityService
 import com.roy.autoclicker.theme.MaterialPalette
+import com.roy.autoclicker.theme.ThemeWindows
 import com.roy.autoclicker.utils.ViewUtils.setClickAction
 import com.roy.autoclicker.widget.Actionbar
 import kotlin.coroutines.Continuation
@@ -54,17 +52,7 @@ class MainActivity : Activity() {
 
   override fun attachBaseContext(newBase: Context) {
     super.attachBaseContext(newBase)
-    themeModeAtCreation = ClickerSettings(newBase).themeMode
-    if (ClickerSettings.THEME_SYSTEM != themeModeAtCreation) {
-      // 只覆盖夜间模式，保留系统的字号、语言和屏幕配置。
-      applyOverrideConfiguration(Configuration().apply {
-        this.uiMode = if (ClickerSettings.THEME_DARK == themeModeAtCreation) {
-          Configuration.UI_MODE_NIGHT_YES
-        } else {
-          Configuration.UI_MODE_NIGHT_NO
-        }
-      })
-    }
+    themeModeAtCreation = ThemeWindows.overrideMode(this, newBase)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,7 +93,7 @@ class MainActivity : Activity() {
       ClickerAccessibilityService.hideControls()
       refreshState()
     }
-    configureInsets()
+    ThemeWindows.configureInsets(this, findViewById(R.id.main))
     savedInstanceState?.let {
       val screen = it.getInt(STATE_DIALOG_SCREEN)
       if (screen in ClickerDialog.SCREEN_SETTINGS..ClickerDialog.SCREEN_ABOUT) {
@@ -116,6 +104,10 @@ class MainActivity : Activity() {
 
   override fun onResume() {
     super.onResume()
+    if (settings.themeMode != themeModeAtCreation || MaterialPalette.find(settings.paletteId).id != paletteAtCreation) {
+      recreate()
+      return
+    }
     ClickerAccessibilityService.stopClicking(R.string.stopped_app_opened)
     handler.removeCallbacks(refreshTask)
     refreshTask.run()
@@ -155,6 +147,10 @@ class MainActivity : Activity() {
     popupMenu = PopupMenu(ContextThemeWrapper(this, R.style.ThemeOverlay_AutoClicker_Popup), anchor, Gravity.END).apply {
       inflate(R.menu.main_options)
       setOnMenuItemClickListener { item ->
+        if (R.id.menu_theme == item.itemId) {
+          startActivity(Intent(this@MainActivity, ThemeSettingsActivity::class.java))
+          return@setOnMenuItemClickListener true
+        }
         val screen = when (item.itemId) {
           R.id.menu_settings -> ClickerDialog.SCREEN_SETTINGS
           R.id.menu_help     -> ClickerDialog.SCREEN_HELP
@@ -187,9 +183,6 @@ class MainActivity : Activity() {
       }
       if (!disposing && !isFinishing && ClickerDialog.RESULT_SAVED == result) {
         Toast.makeText(this, R.string.settings_saved, Toast.LENGTH_SHORT).show()
-        if (settings.themeMode != themeModeAtCreation || MaterialPalette.find(settings.paletteId).id != paletteAtCreation) {
-          recreate()
-        }
       }
     }
     action.startCoroutine(object : Continuation<Unit> {
@@ -247,29 +240,6 @@ class MainActivity : Activity() {
     } catch (x: Throwable) {
       Log.w("MainActivity", "Unable to open permission settings", x)
       Toast.makeText(this, R.string.settings_unavailable, Toast.LENGTH_LONG).show()
-    }
-  }
-
-  private fun configureInsets() {
-    if (Build.VERSION_CODES.R <= Build.VERSION.SDK_INT) {
-      window.setDecorFitsSystemWindows(false)
-    } else {
-      window.decorView.let {
-        it.systemUiVisibility = it.systemUiVisibility or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-          View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-      }
-    }
-    findViewById<View>(R.id.main).let { root ->
-      root.setOnApplyWindowInsetsListener { view, insets ->
-        if (Build.VERSION_CODES.R <= Build.VERSION.SDK_INT) {
-          val bars = insets.getInsets(WindowInsets.Type.systemBars() or WindowInsets.Type.displayCutout() or WindowInsets.Type.ime())
-          view.setPadding(bars.left, bars.top, bars.right, bars.bottom)
-        } else {
-          view.setPadding(insets.systemWindowInsetLeft, insets.systemWindowInsetTop, insets.systemWindowInsetRight, insets.systemWindowInsetBottom)
-        }
-        insets
-      }
-      root.requestApplyInsets()
     }
   }
 

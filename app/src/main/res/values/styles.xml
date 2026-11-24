@@ -7,6 +7,7 @@
         <item name="android:background">@drawable/background_panel</item>
         <item name="android:padding">@dimen/space_medium</item>
         <item name="android:orientation">vertical</item>
+        <item name="android:elevation">@dimen/elevation_card</item>
     </style>
     <style name="SectionTitle">
         <item name="android:layout_width">match_parent</item>
@@ -63,6 +64,7 @@
         <item name="android:background">@drawable/background_button_primary</item>
         <item name="android:textColor">?attr/color_on_button</item>
         <item name="android:drawableTint">?attr/color_on_button</item>
+        <item name="android:stateListAnimator">@animator/button_elevation</item>
     </style>
     <style name="NumberInput">
         <item name="android:layout_width">match_parent</item>
@@ -92,18 +94,9 @@
         <item name="android:paddingEnd">@dimen/space_small</item>
         <item name="android:textSize">@dimen/text_button</item>
         <item name="android:textColor">@color/text_primary</item>
-        <item name="android:buttonTint">?android:attr/colorAccent</item>
-    </style>
-    <style name="PaletteSpinner" parent="android:style/Widget.Material.Spinner">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">@dimen/touch_target</item>
-        <item name="android:layout_marginTop">@dimen/space_small</item>
-        <item name="android:background">@drawable/background_input</item>
-        <item name="android:backgroundTint">@null</item>
-        <item name="android:padding">0dp</item>
-        <item name="android:popupBackground">@drawable/background_dialog</item>
-        <item name="android:dropDownWidth">match_parent</item>
+        <item name="android:buttonTint">@color/theme_option_tint</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:saveEnabled">false</item>
     </style>
     <style name="DialogButton" parent="ActionButton">
         <item name="android:layout_width">wrap_content</item>
@@ -116,7 +109,7 @@
         <item name="android:textAppearanceSmallPopupMenu">@style/PopupMenuText</item>
     </style>
     <style name="PopupMenuStyle" parent="android:style/Widget.Material.PopupMenu">
-        <item name="android:popupBackground">@drawable/background_dialog</item>
+        <item name="android:popupBackground">@drawable/background_popup</item>
         <item name="android:popupElevation">@dimen/space_small</item>
     </style>
     <style name="PopupMenuText" parent="android:style/TextAppearance.Material.Menu">

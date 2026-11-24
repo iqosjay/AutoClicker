@@ -16,7 +16,7 @@ class ScreenLayout(context: Context, attrs: AttributeSet?, defStyleAttr: Int, de
 
   private val headerHeight = resources.getDimensionPixelSize(R.dimen.actionbar_height)
   private val headerPaint = Paint().apply {
-    this.color = MaterialPalette.resolveColor(context, android.R.attr.colorPrimary)
+    this.color = MaterialPalette.resolveColor(context, R.attr.color_app_bar)
   }
 
   init {

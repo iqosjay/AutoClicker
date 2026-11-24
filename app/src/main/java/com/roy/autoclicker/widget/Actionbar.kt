@@ -32,7 +32,7 @@ class Actionbar(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defSt
     closeButton = findViewById(R.id.actionbar_close)
     menuButton = findViewById(R.id.actionbar_menu)
     minimumHeight = resources.getDimensionPixelSize(R.dimen.actionbar_height)
-    setBackgroundColor(MaterialPalette.resolveColor(context, android.R.attr.colorPrimary))
+    setBackgroundColor(MaterialPalette.resolveColor(context, R.attr.color_app_bar))
     val attributes = context.obtainStyledAttributes(attrs, R.styleable.Actionbar, defStyleAttr, defStyleRes)
     try {
       title = attributes.getText(R.styleable.Actionbar_actionbar_title) ?: context.getString(R.string.screen_title)
@@ -47,5 +47,13 @@ class Actionbar(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defSt
 
   fun setOnMenuClickListener(listener: View.OnClickListener) {
     menuButton.setClickAction(listener)
+  }
+
+  fun showBackNavigation() {
+    closeButton.let {
+      it.setImageResource(R.drawable.ic_arrow_back)
+      it.contentDescription = context.getString(R.string.navigate_back)
+    }
+    menuButton.visibility = View.GONE
   }
 }

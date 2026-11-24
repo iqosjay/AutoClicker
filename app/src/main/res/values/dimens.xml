@@ -11,7 +11,7 @@
     <dimen name="icon_large">32dp</dimen>
     <dimen name="touch_target">48dp</dimen>
     <dimen name="button_height">48dp</dimen>
-    <dimen name="actionbar_height">64dp</dimen>
+    <dimen name="actionbar_height">56dp</dimen>
     <dimen name="field_height">48dp</dimen>
     <dimen name="dialog_max_width">480dp</dimen>
     <dimen name="dialog_button_width">80dp</dimen>
@@ -19,6 +19,6 @@
     <dimen name="text_body">14sp</dimen>
     <dimen name="text_button">16sp</dimen>
     <dimen name="text_section">20sp</dimen>
-    <dimen name="text_actionbar">22sp</dimen>
-    <dimen name="text_input">24sp</dimen>
+    <dimen name="text_actionbar">20sp</dimen>
+    <dimen name="text_input">16sp</dimen>
 </resources>

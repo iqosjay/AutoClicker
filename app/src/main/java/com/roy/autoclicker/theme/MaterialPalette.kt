@@ -12,12 +12,30 @@ data class MaterialFamily(val id: String, val nameResource: Int, val swatches: L
 object MaterialPalette {
 
   private val defaultSwatch = MaterialSwatch(ClickerSettings.DEFAULT_PALETTE, "", R.color.color_accent, 0)
-  val families = listOf(MaterialFamily(ClickerSettings.DEFAULT_PALETTE, R.string.palette_default, listOf(defaultSwatch))) + GENERATED_MATERIAL_FAMILIES
-  private val swatches = families.flatMap { it.swatches }.associateBy { it.id }
+  private val systemSwatch = MaterialSwatch(ClickerSettings.SYSTEM_PALETTE, "", R.color.auto_primary, R.style.ThemeOverlay_AutoClicker_Palette_System)
+  val families = GENERATED_MATERIAL_FAMILIES
+  val swatches = families.flatMap { it.swatches }
+  private val swatchesById = (swatches + defaultSwatch + systemSwatch).associateBy { it.id }
 
-  fun find(id: String): MaterialSwatch = swatches[id] ?: defaultSwatch
+  fun find(id: String): MaterialSwatch = swatchesById[id] ?: defaultSwatch
 
-  fun familyIndex(id: String): Int = families.indexOfFirst { family -> family.swatches.any { it.id == id } }.coerceAtLeast(0)
+  fun name(context: Context, id: String): String {
+    return when (id) {
+      ClickerSettings.DEFAULT_PALETTE -> context.getString(R.string.palette_default)
+      ClickerSettings.SYSTEM_PALETTE  -> context.getString(R.string.palette_system)
+      else                           -> {
+        val swatch = find(id)
+        val family = families.firstOrNull { it.swatches.contains(swatch) }
+          ?: return context.getString(R.string.palette_default)
+        val name = context.getString(family.nameResource)
+        if ("Black" == swatch.tone || "White" == swatch.tone) {
+          name
+        } else {
+          "$name ${swatch.tone}"
+        }
+      }
+    }
+  }
 
   fun applyTheme(context: Context, id: String) {
     val style = find(id).styleResource

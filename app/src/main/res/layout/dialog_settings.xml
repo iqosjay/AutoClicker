@@ -31,41 +31,4 @@
         android:imeOptions="actionDone" />
     <TextView style="@style/BodyText" android:text="@string/duration_note" />
 
-    <TextView style="@style/FieldLabel" android:text="@string/theme_label" />
-    <RadioGroup
-        android:id="@+id/theme_options"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_small"
-        android:orientation="vertical">
-        <RadioButton android:id="@+id/theme_system" style="@style/ThemeOption" android:text="@string/theme_system" />
-        <RadioButton android:id="@+id/theme_light" style="@style/ThemeOption" android:text="@string/theme_light" />
-        <RadioButton android:id="@+id/theme_dark" style="@style/ThemeOption" android:text="@string/theme_dark" />
-    </RadioGroup>
-    <TextView
-        style="@style/FieldLabel"
-        android:labelFor="@id/palette_family"
-        android:text="@string/palette_family_label" />
-    <Spinner
-        android:id="@+id/palette_family"
-        style="@style/PaletteSpinner"
-        android:spinnerMode="dropdown" />
-    <TextView
-        style="@style/FieldLabel"
-        android:labelFor="@id/palette_tone"
-        android:text="@string/palette_tone_label" />
-    <Spinner
-        android:id="@+id/palette_tone"
-        style="@style/PaletteSpinner"
-        android:spinnerMode="dropdown" />
-    <TextView
-        android:id="@+id/palette_preview"
-        style="@style/BodyText"
-        android:minHeight="64dp"
-        android:gravity="center"
-        android:padding="@dimen/space_small"
-        android:lineSpacingExtra="0dp"
-        android:accessibilityLiveRegion="polite" />
-    <TextView style="@style/BodyText" android:text="@string/palette_note" />
-    <TextView style="@style/BodyText" android:text="@string/theme_note" />
 </LinearLayout>

@@ -5,6 +5,7 @@ downloads the official table again. Neither path runs Gradle or compiles the app
 """
 
 import argparse
+import colorsys
 import gzip
 import json
 from pathlib import Path
@@ -81,17 +82,36 @@ def style_name(name, tone):
   return f"ThemeOverlay.AutoClicker.Palette.{suffix}"
 
 
-def readable_accent(name, colors, selected, night):
-  backgrounds = ("#121214", "#202024", "#303034") if night else ("#FFFFFF", "#F5F5F5", "#EAEAEA")
-  candidates = [(identifier(name, tone), value) for tone, value in colors.items()]
-  candidates += [("black", "#000000"), ("white", "#FFFFFF")]
-  readable = [(key, value) for key, value in candidates if all(contrast(value, background) >= 4.5 for background in backgrounds)]
-  return min(readable, key=lambda item: abs(luminance(item[1]) - luminance(selected)))[0]
+def color_from_hls(hue, lightness, saturation):
+  channels = colorsys.hls_to_rgb(hue, lightness, saturation)
+  return "#" + "".join(f"{round(channel * 255):02X}" for channel in channels)
 
 
-def darker_tone(colors, selected):
-  darker = [(tone, value) for tone, value in colors.items() if luminance(value) < luminance(selected)]
-  return min(darker, key=lambda item: abs(luminance(item[1]) - luminance(selected) * 0.6))[0] if darker else min(colors, key=lambda tone: luminance(colors[tone]))
+def theme_colors(selected, night):
+  channels = [int(selected[index:index + 2], 16) / 255 for index in (1, 3, 5)]
+  hue, lightness, saturation = colorsys.rgb_to_hls(*channels)
+  if night:
+    # M2 dark themes use less saturated accents on neutral elevated surfaces.
+    saturation = min(saturation, 0.5)
+    lightness = max(lightness, 0.65)
+  backgrounds = ("#121212", "#1E1E1E", "#272727", "#2C2C2C", "#383838") if night else ("#FFFFFF", "#FAFAFA", "#F5F5F5")
+  foreground = "#000000" if night else "#FFFFFF"
+  direction = 1 if night else -1
+  for step in range(1001):
+    candidate = color_from_hls(hue, min(1, max(0, lightness + direction * step / 1000)), saturation)
+    if all(contrast(candidate, background) >= 4.5 for background in (*backgrounds, foreground)):
+      return candidate, foreground
+  raise ValueError(f"No readable accent for {selected}")
+
+
+def app_bar_color(selected):
+  channels = [int(selected[index:index + 2], 16) / 255 for index in (1, 3, 5)]
+  hue, lightness, saturation = colorsys.rgb_to_hls(*channels)
+  for step in range(1001):
+    candidate = color_from_hls(hue, max(0, lightness - step / 1000), saturation)
+    if contrast(candidate, "#FFFFFF") >= 7:
+      return candidate
+  raise ValueError(f"No readable app bar for {selected}")
 
 
 def write(relative, lines):
@@ -119,23 +139,23 @@ def generate():
     for tone, value in colors.items():
       key = identifier(name, tone)
       style = style_name(name, tone)
-      foreground = "white" if contrast("#FFFFFF", value) > contrast("#000000", value) else "black"
-      assert contrast("#FFFFFF" if foreground == "white" else "#000000", value) >= 4.5
       colors_xml.append(f'    <color name="material_{key}">{value}</color>')
       kotlin.append(f'    MaterialSwatch("{key}", "{tone}", R.color.material_{key}, R.style.{style.replace(".", "_")}),')
       for night, output in styles.items():
-        accent = readable_accent(name, colors, value, night)
-        primary = "@color/page_background" if night else f"@color/material_{key}"
-        primary_dark = "@color/panel_background" if night else f"@color/material_{identifier(name, darker_tone(colors, value))}"
+        accent, foreground = theme_colors(value, night)
+        bar = app_bar_color(value)
         items = {
-          "android:colorPrimary": primary,
-          "android:colorPrimaryDark": primary_dark,
-          "android:colorAccent": f"@color/material_{accent}",
-          "android:windowLightStatusBar": str(not night and foreground == "black").lower(),
-          "color_on_primary": "@color/text_primary" if night else f"@android:color/{foreground}",
-          "color_button_background": f"@color/material_{key}",
-          "color_on_button": f"@android:color/{foreground}",
-          "color_button_ripple": "#30FFFFFF" if foreground == "white" else "#18000000",
+          "android:colorPrimary": accent,
+          "android:colorPrimaryDark": bar,
+          "android:colorAccent": accent,
+          "android:windowLightStatusBar": "false",
+          "color_app_bar": bar,
+          "color_on_app_bar": "@android:color/white",
+          "color_app_bar_ripple": "#33FFFFFF",
+          "color_action": accent,
+          "color_button_background": accent,
+          "color_on_button": foreground,
+          "color_button_ripple": "#30FFFFFF" if "#FFFFFF" == foreground else "#18000000",
         }
         output.append(f'    <style name="{style}" parent="">')
         output.extend(f'        <item name="{attribute}">{color}</item>' for attribute, color in items.items())
