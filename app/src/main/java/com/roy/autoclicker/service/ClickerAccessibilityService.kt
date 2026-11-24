@@ -13,7 +13,6 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.os.PowerManager
-import android.provider.Settings
 import android.util.DisplayMetrics
 import android.view.Display
 import android.view.KeyEvent
@@ -317,7 +316,8 @@ class ClickerAccessibilityService : AccessibilityService() {
   }
 
   private fun isEnvironmentReady(): Boolean {
-    return instance === this && Settings.canDrawOverlays(this) && powerManager.isInteractive && !keyguardManager.isKeyguardLocked
+    // 控制窗口使用无障碍服务的窗口令牌，不需要 SYSTEM_ALERT_WINDOW 授权。
+    return instance === this && powerManager.isInteractive && !keyguardManager.isKeyguardLocked
   }
 
   private fun readDisplaySignature(): String {

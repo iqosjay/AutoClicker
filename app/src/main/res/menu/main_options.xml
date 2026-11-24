@@ -3,5 +3,6 @@
     <item android:id="@+id/menu_settings" android:title="@string/menu_settings" />
     <item android:id="@+id/menu_theme" android:title="@string/theme_settings_title" />
     <item android:id="@+id/menu_help" android:title="@string/menu_help" />
+    <item android:id="@+id/menu_privacy" android:title="@string/privacy_title" />
     <item android:id="@+id/menu_about" android:title="@string/menu_about" />
 </menu>

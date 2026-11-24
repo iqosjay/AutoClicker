@@ -20,3 +20,23 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Additional exclusions from the GitHub repository.
+.gradle/
+build/
+.kotlin/
+*.log
+captures/
+.externalNativeBuild/
+.cxx/
+output-metadata.json
+.idea/
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+google-services.json
+*.hprof
+
+# Public release artifacts explicitly included in this repository.
+!/app_1.0.apk
+!/signing/roy_pub.jks

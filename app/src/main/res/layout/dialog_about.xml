@@ -5,6 +5,19 @@
     android:orientation="vertical">
     <TextView style="@style/FieldLabel" android:layout_marginTop="0dp" android:text="@string/disclaimer_title" />
     <TextView style="@style/BodyText" android:text="@string/disclaimer_body" />
+    <TextView style="@style/FieldLabel" android:text="@string/github_repository_title" />
+    <TextView
+        android:id="@+id/github_repository"
+        style="@style/BodyText"
+        android:background="@drawable/background_button"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/touch_target"
+        android:paddingTop="@dimen/space_small"
+        android:paddingBottom="@dimen/space_small"
+        android:text="@string/github_repository_address"
+        android:textColor="?attr/color_action"
+        android:textSize="@dimen/text_button" />
     <TextView style="@style/FieldLabel" android:text="@string/contact_title" />
     <TextView
         android:id="@+id/contact_email"

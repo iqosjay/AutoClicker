@@ -3,7 +3,6 @@ package com.roy.autoclicker
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -38,7 +37,6 @@ class MainActivity : Activity() {
 
   private lateinit var settings: ClickerSettings
   private lateinit var actionbar: Actionbar
-  private lateinit var textOverlayPermission: TextView
   private lateinit var textAccessibilityPermission: TextView
   private lateinit var textStatus: TextView
   private lateinit var buttonShow: Button
@@ -48,7 +46,7 @@ class MainActivity : Activity() {
   private var popupMenu: PopupMenu? = null
   private var disposing = false
   private var themeModeAtCreation = ClickerSettings.THEME_SYSTEM
-  private var paletteAtCreation = ClickerSettings.DEFAULT_PALETTE
+  private var paletteAtCreation = ClickerSettings.SYSTEM_PALETTE
 
   override fun attachBaseContext(newBase: Context) {
     super.attachBaseContext(newBase)
@@ -62,7 +60,6 @@ class MainActivity : Activity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
     actionbar = findViewById(R.id.actionbar)
-    textOverlayPermission = findViewById(R.id.text_overlay_permission)
     textAccessibilityPermission = findViewById(R.id.text_accessibility_permission)
     textStatus = findViewById(R.id.text_status)
     buttonShow = findViewById(R.id.button_show)
@@ -74,10 +71,6 @@ class MainActivity : Activity() {
       it.setOnMenuClickListener { anchor -> showMenu(anchor) }
     }
 
-    findViewById<Button>(R.id.button_overlay_permission).setClickAction {
-      ClickerAccessibilityService.hideControls()
-      openSettings(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName")))
-    }
     findViewById<Button>(R.id.button_accessibility).setClickAction {
       ClickerAccessibilityService.hideControls()
       openSettings(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
@@ -94,10 +87,18 @@ class MainActivity : Activity() {
       refreshState()
     }
     ThemeWindows.configureInsets(this, findViewById(R.id.main))
-    savedInstanceState?.let {
-      val screen = it.getInt(STATE_DIALOG_SCREEN)
+    val screen = savedInstanceState?.getInt(STATE_DIALOG_SCREEN) ?: 0
+    val dialogState = savedInstanceState?.getBundle(STATE_DIALOG_CONTENT)
+    if (!settings.hasSeenPrivacyPolicy) {
+      val privacyState = if (ClickerDialog.SCREEN_PRIVACY == screen) {
+        dialogState
+      } else {
+        null
+      }
+      showClickerDialog(ClickerDialog.SCREEN_PRIVACY, privacyState)
+    } else {
       if (screen in ClickerDialog.SCREEN_SETTINGS..ClickerDialog.SCREEN_ABOUT) {
-        showClickerDialog(screen, it.getBundle(STATE_DIALOG_CONTENT))
+        showClickerDialog(screen, dialogState)
       }
     }
   }
@@ -149,6 +150,10 @@ class MainActivity : Activity() {
       setOnMenuItemClickListener { item ->
         if (R.id.menu_theme == item.itemId) {
           startActivity(Intent(this@MainActivity, ThemeSettingsActivity::class.java))
+          return@setOnMenuItemClickListener true
+        }
+        if (R.id.menu_privacy == item.itemId) {
+          startActivity(Intent(this@MainActivity, PrivacyActivity::class.java))
           return@setOnMenuItemClickListener true
         }
         val screen = when (item.itemId) {
@@ -203,10 +208,6 @@ class MainActivity : Activity() {
   }
 
   private fun refreshState() {
-    textOverlayPermission.setText(when {
-      Settings.canDrawOverlays(this) -> R.string.permission_granted
-      else                          -> R.string.permission_not_granted
-    })
     textAccessibilityPermission.setText(when {
       ClickerAccessibilityService.isConnected -> R.string.service_connected
       else                                   -> R.string.service_not_connected
@@ -221,10 +222,6 @@ class MainActivity : Activity() {
   }
 
   private fun showControls() {
-    if (!Settings.canDrawOverlays(this)) {
-      Toast.makeText(this, R.string.need_overlay_permission, Toast.LENGTH_LONG).show()
-      return
-    }
     if (!ClickerAccessibilityService.isConnected) {
       Toast.makeText(this, R.string.need_accessibility, Toast.LENGTH_LONG).show()
       return

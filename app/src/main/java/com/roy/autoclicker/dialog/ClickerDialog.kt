@@ -40,6 +40,7 @@ class ClickerDialog private constructor(builder: Builder) : Dialog(builder.activ
   private lateinit var inputFrequency: EditText // 目标点击频率
   private lateinit var inputDuration: EditText  // 自动停止时间
   private lateinit var textEmail: TextView      // 联系邮箱入口
+  private lateinit var textRepository: TextView // 开源仓库入口
 
   init {
     MaterialPalette.applyTheme(context, settings.paletteId)
@@ -56,11 +57,13 @@ class ClickerDialog private constructor(builder: Builder) : Dialog(builder.activ
     val title = when (screen) {
       SCREEN_SETTINGS -> R.string.menu_settings
       SCREEN_HELP     -> R.string.menu_help
+      SCREEN_PRIVACY  -> R.string.privacy_title
       else            -> R.string.menu_about
     }
     val layout = when (screen) {
       SCREEN_SETTINGS -> R.layout.dialog_settings
       SCREEN_HELP     -> R.layout.dialog_help
+      SCREEN_PRIVACY  -> R.layout.content_privacy
       else            -> R.layout.dialog_about
     }
     titleView.setText(title)
@@ -74,10 +77,10 @@ class ClickerDialog private constructor(builder: Builder) : Dialog(builder.activ
       it.setClickAction { dismiss() }
     }
     buttonConfirm.let {
-      it.setText(if (SCREEN_SETTINGS == screen) {
-        R.string.save_settings
-      } else {
-        R.string.got_it
+      it.setText(when (screen) {
+        SCREEN_SETTINGS -> R.string.save_settings
+        SCREEN_PRIVACY  -> R.string.privacy_acknowledge
+        else            -> R.string.got_it
       })
       it.setClickAction { confirm() }
     }
@@ -85,6 +88,8 @@ class ClickerDialog private constructor(builder: Builder) : Dialog(builder.activ
       configureSettings()
     } else if (SCREEN_ABOUT == screen) {
       configureAbout()
+    } else if (SCREEN_PRIVACY == screen) {
+      setCanceledOnTouchOutside(false)
     }
   }
 
@@ -120,6 +125,14 @@ class ClickerDialog private constructor(builder: Builder) : Dialog(builder.activ
     pending?.resume(resultCode)
   }
 
+  override fun cancel() {
+    if (SCREEN_PRIVACY == screen && isShowing) {
+      // 返回键只关闭告知弹窗，不代表系统授权；销毁时的 dismiss 不记录为已查看。
+      settings.markPrivacyPolicySeen()
+    }
+    super.cancel()
+  }
+
   private fun configureSettings() {
     inputFrequency = findViewById(R.id.input_frequency)
     inputDuration = findViewById(R.id.input_duration)
@@ -143,15 +156,34 @@ class ClickerDialog private constructor(builder: Builder) : Dialog(builder.activ
         return
       }
       resultCode = RESULT_SAVED
+    } else if (SCREEN_PRIVACY == screen) {
+      settings.markPrivacyPolicySeen()
+      resultCode = RESULT_PRIVACY_SEEN
     }
     dismiss()
   }
 
   private fun configureAbout() {
     textEmail = findViewById(R.id.contact_email)
+    textRepository = findViewById(R.id.github_repository)
     textEmail.let {
       it.paintFlags = it.paintFlags or Paint.UNDERLINE_TEXT_FLAG
       it.setClickAction { openEmailApp() }
+    }
+    textRepository.let {
+      it.paintFlags = it.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+      it.setClickAction { openRepository() }
+    }
+  }
+
+  private fun openRepository() {
+    // SSH 克隆地址不能直接由浏览器打开，跳转对应的 HTTPS 页面。
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.github_repository_url)))
+    try {
+      context.startActivity(intent)
+    } catch (x: Throwable) {
+      Log.w("ClickerDialog", "Unable to open repository", x)
+      Toast.makeText(context, R.string.browser_unavailable, Toast.LENGTH_LONG).show()
     }
   }
 
@@ -199,7 +231,7 @@ class ClickerDialog private constructor(builder: Builder) : Dialog(builder.activ
       private set
 
     fun setScreen(value: Int): Builder = apply {
-      require(value in SCREEN_SETTINGS..SCREEN_ABOUT)
+      require(value in SCREEN_SETTINGS..SCREEN_PRIVACY)
       this.screenId = value
     }
 
@@ -214,7 +246,9 @@ class ClickerDialog private constructor(builder: Builder) : Dialog(builder.activ
     const val SCREEN_SETTINGS = 1
     const val SCREEN_HELP = 2
     const val SCREEN_ABOUT = 3
+    const val SCREEN_PRIVACY = 4
     const val RESULT_DISMISSED = 0
     const val RESULT_SAVED = 1
+    const val RESULT_PRIVACY_SEEN = 2
   }
 }

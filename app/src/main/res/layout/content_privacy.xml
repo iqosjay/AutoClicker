@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView style="@style/BodyText" android:layout_marginTop="0dp" android:text="@string/privacy_intro" />
+    <TextView style="@style/FieldLabel" android:text="@string/privacy_permission_title" />
+    <TextView style="@style/BodyText" android:text="@string/privacy_permission_body" />
+    <TextView style="@style/FieldLabel" android:text="@string/privacy_scope_title" />
+    <TextView style="@style/BodyText" android:text="@string/privacy_scope_body" />
+    <TextView style="@style/FieldLabel" android:text="@string/privacy_storage_title" />
+    <TextView style="@style/BodyText" android:text="@string/privacy_storage_body" />
+    <TextView style="@style/FieldLabel" android:text="@string/privacy_control_title" />
+    <TextView style="@style/BodyText" android:text="@string/privacy_control_body" />
+    <TextView style="@style/FieldLabel" android:text="@string/privacy_external_title" />
+    <TextView style="@style/BodyText" android:text="@string/privacy_external_body" />
+    <TextView style="@style/FieldLabel" android:text="@string/contact_title" />
+    <TextView style="@style/BodyText" android:text="@string/contact_email" />
+</LinearLayout>

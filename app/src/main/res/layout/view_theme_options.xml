@@ -28,7 +28,6 @@
         android:layout_marginTop="@dimen/space_small"
         android:orientation="vertical">
         <RadioButton android:id="@+id/palette_system" style="@style/ThemeOption" android:text="@string/palette_system" />
-        <RadioButton android:id="@+id/palette_default" style="@style/ThemeOption" android:text="@string/palette_default" />
     </RadioGroup>
     <TextView style="@style/BodyText" android:text="@string/palette_system_note" />
     <TextView

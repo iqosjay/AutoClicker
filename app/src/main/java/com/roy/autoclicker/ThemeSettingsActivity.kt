@@ -22,7 +22,7 @@ class ThemeSettingsActivity : Activity() {
   private lateinit var swatchList: ListView
   private lateinit var swatchAdapter: ThemeSwatchAdapter
   private var selectedMode = ClickerSettings.THEME_SYSTEM
-  private var selectedPalette = ClickerSettings.DEFAULT_PALETTE
+  private var selectedPalette = ClickerSettings.SYSTEM_PALETTE
   private var recreating = false
 
   override fun attachBaseContext(newBase: Context) {
@@ -57,9 +57,6 @@ class ThemeSettingsActivity : Activity() {
     }
     bindOption(header, R.id.palette_system, ClickerSettings.SYSTEM_PALETTE == selectedPalette) {
       select(selectedMode, ClickerSettings.SYSTEM_PALETTE)
-    }
-    bindOption(header, R.id.palette_default, ClickerSettings.DEFAULT_PALETTE == selectedPalette) {
-      select(selectedMode, ClickerSettings.DEFAULT_PALETTE)
     }
     header.findViewById<TextView>(R.id.palette_selection).text = getString(
       R.string.palette_selected, MaterialPalette.name(this, selectedPalette)

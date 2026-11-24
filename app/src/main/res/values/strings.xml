@@ -13,22 +13,21 @@
     <string name="theme_system">跟随系统</string>
     <string name="theme_light">亮色</string>
     <string name="theme_dark">暗色</string>
-    <string name="palette_default">默认配色</string>
     <string name="palette_note">轻点色块即可应用，勾号表示当前选择。</string>
-    <string name="help_permissions_body">先在首页允许悬浮窗权限，再到系统无障碍设置中启用「连点器」。右上角「设置」可调整频率与自动停止时间；「主题设置」可选择显示模式和配色，选择后立即生效。</string>
+    <string name="help_permissions_body">到系统无障碍设置中启用「连点器」，等待服务连接后即可显示悬浮控制，无需额外授予悬浮窗权限。右上角「设置」可调整频率与自动停止时间；「主题设置」可选择显示模式和配色；「隐私政策」可随时查看权限用途和本地数据说明。</string>
     <string name="disclaimer_title">免责声明</string>
     <string name="disclaimer_body">本工具用于用户主动授权的重复点击操作。请仅在你有权操作且允许自动化的场景下使用，并遵守目标应用或游戏的使用规则。\n\n使用前请确认点击位置、频率与持续时间。实际效果受设备、系统和目标应用影响，不保证达到设定频率或适用于所有场景。请自行评估和承担误操作、账号限制及其他使用风险。\n\n本工具不读取屏幕内容，也不代替用户作出操作决定。发现异常时，请立即通过音量键或锁屏停止。</string>
     <string name="contact_title">联系邮箱</string>
     <string name="contact_email" translatable="false">iqosjay@gmail.com</string>
     <string name="email_app_unavailable">无法打开邮件应用，请确认已安装可用的邮件应用</string>
-    <string name="permissions_title">先开启两项权限</string>
-    <string name="overlay_permission_title">悬浮窗</string>
-    <string name="accessibility_permission_title">无障碍服务</string>
-    <string name="permission_granted">已允许</string>
-    <string name="permission_not_granted">未允许</string>
+    <string name="github_repository_title">GitHub 开源地址</string>
+    <string name="github_repository_address" translatable="false">git@github.com:iqosjay/AutoClicker.git</string>
+    <string name="github_repository_url" translatable="false">https://github.com/iqosjay/AutoClicker</string>
+    <string name="browser_unavailable">无法打开浏览器，请确认已安装可用的浏览器</string>
+    <string name="permissions_title">开启无障碍服务</string>
+    <string name="accessibility_permission_note">用于执行点击、显示悬浮控制和通过音量键停止。无需额外的悬浮窗授权。</string>
     <string name="service_connected">已连接</string>
     <string name="service_not_connected">未连接，请在设置中启用「连点器」</string>
-    <string name="open_permission_settings">设置悬浮窗权限</string>
     <string name="open_accessibility_settings">设置无障碍服务</string>
     <string name="accessibility_service_name">连点器</string>
     <string name="accessibility_service_description">按你设置的位置和频率执行连续点击，接收悬浮按钮触摸和音量键以停止点击。不读取屏幕内容。运行中按圆形按钮、音量键或锁屏即可停止；达到设定时限也会自动停止。</string>
@@ -53,10 +52,9 @@
     <string name="usage_body">显示悬浮控制后，打开要点击的应用。\n\n拖动黑色圆形按钮到目标位置，松手后轻点三角形，便会在圆心位置连续点击。圆形按钮保持原位，内部图标平滑变成正方形；再按这个按钮即可停止，图标变回三角形。停止后可继续拖动定位。</string>
     <string name="stop_title">停止一直在手边</string>
     <string name="stop_body">轻点圆形按钮停止。圆心留有极小的点击穿透位置，停止时可稍偏离圆心按下；按钮以外的触摸不会作为停止操作。\n\n音量上键或下键也能停止，具体表现受手机系统和其他无障碍服务影响。切换横竖屏时会停止连点，但保留悬浮按钮并调整位置；图标随屏幕方向显示，确认位置后可手动再次开始。锁屏或返回首页也会停止，解锁后不会自动恢复。</string>
-    <string name="need_overlay_permission">请先允许本应用显示在其他应用上层</string>
     <string name="need_accessibility">请在无障碍设置中启用「连点器」，等待服务连接后再试</string>
     <string name="settings_unavailable">无法打开设置，请在系统设置中手动开启对应权限</string>
-    <string name="overlay_unavailable">无法显示悬浮窗，请检查权限和当前屏幕是否可用</string>
+    <string name="overlay_unavailable">无法显示悬浮控制，请检查无障碍服务和当前屏幕是否可用</string>
     <string name="target_unavailable">点击位置不可用，请重新显示圆形按钮并定位</string>
     <string name="wait_for_gesture">正在等待系统结束上一次点击，请稍后再试</string>
     <string name="service_reset_required">请关闭并重新启用「连点器」无障碍服务后再试</string>

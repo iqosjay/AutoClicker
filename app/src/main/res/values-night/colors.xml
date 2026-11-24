@@ -8,12 +8,12 @@
     <color name="text_primary">#DEFFFFFF</color>
     <color name="text_secondary">#99FFFFFF</color>
     <color name="text_disabled">#77757B</color>
-    <color name="color_primary">#ff272727</color>
-    <color name="color_primary_dark">#ff121212</color>
-    <color name="color_accent">#fff48fb1</color>
-    <color name="color_action">@color/material_pink_200</color>
-    <color name="on_accent">#000000</color>
+    <color name="color_primary">@color/auto_primary</color>
+    <color name="color_primary_dark">@color/auto_primary</color>
+    <color name="color_accent">@color/auto_primary</color>
+    <color name="color_action">@color/auto_primary</color>
+    <color name="on_accent">@color/auto_on_primary</color>
     <color name="ripple">#28FFFFFF</color>
-    <color name="ripple_on_accent">#20000000</color>
+    <color name="ripple_on_accent">@color/auto_ripple</color>
     <color name="danger">#FFB4AB</color>
 </resources>

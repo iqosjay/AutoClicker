@@ -11,22 +11,20 @@ data class MaterialFamily(val id: String, val nameResource: Int, val swatches: L
 
 object MaterialPalette {
 
-  private val defaultSwatch = MaterialSwatch(ClickerSettings.DEFAULT_PALETTE, "", R.color.color_accent, 0)
   private val systemSwatch = MaterialSwatch(ClickerSettings.SYSTEM_PALETTE, "", R.color.auto_primary, R.style.ThemeOverlay_AutoClicker_Palette_System)
   val families = GENERATED_MATERIAL_FAMILIES
   val swatches = families.flatMap { it.swatches }
-  private val swatchesById = (swatches + defaultSwatch + systemSwatch).associateBy { it.id }
+  private val swatchesById = (swatches + systemSwatch).associateBy { it.id }
 
-  fun find(id: String): MaterialSwatch = swatchesById[id] ?: defaultSwatch
+  fun find(id: String): MaterialSwatch = swatchesById[id] ?: systemSwatch
 
   fun name(context: Context, id: String): String {
     return when (id) {
-      ClickerSettings.DEFAULT_PALETTE -> context.getString(R.string.palette_default)
       ClickerSettings.SYSTEM_PALETTE  -> context.getString(R.string.palette_system)
       else                           -> {
         val swatch = find(id)
         val family = families.firstOrNull { it.swatches.contains(swatch) }
-          ?: return context.getString(R.string.palette_default)
+          ?: return context.getString(R.string.palette_system)
         val name = context.getString(family.nameResource)
         if ("Black" == swatch.tone || "White" == swatch.tone) {
           name

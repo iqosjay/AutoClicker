@@ -16,7 +16,15 @@ class ClickerSettings(context: Context) {
     get() = preferences.getInt(KEY_THEME_MODE, THEME_SYSTEM).takeIf { it in THEME_SYSTEM..THEME_DARK } ?: THEME_SYSTEM
 
   val paletteId: String
-    get() = preferences.getString(KEY_PALETTE_ID, DEFAULT_PALETTE) ?: DEFAULT_PALETTE
+    get() = preferences.getString(KEY_PALETTE_ID, SYSTEM_PALETTE)
+      ?.takeUnless { LEGACY_DEFAULT_PALETTE == it } ?: SYSTEM_PALETTE
+
+  val hasSeenPrivacyPolicy: Boolean
+    get() = PRIVACY_POLICY_VERSION == preferences.getInt(KEY_PRIVACY_POLICY_VERSION, 0)
+
+  fun markPrivacyPolicySeen() {
+    preferences.edit().putInt(KEY_PRIVACY_POLICY_VERSION, PRIVACY_POLICY_VERSION).apply()
+  }
 
   fun saveClicking(frequency: Int, durationSeconds: Int) {
     preferences.edit()
@@ -39,8 +47,10 @@ class ClickerSettings(context: Context) {
     private const val KEY_DURATION_SECONDS = "duration_seconds"
     private const val KEY_THEME_MODE = "theme_mode"
     private const val KEY_PALETTE_ID = "palette_id"
+    private const val KEY_PRIVACY_POLICY_VERSION = "privacy_policy_version"
+    private const val PRIVACY_POLICY_VERSION = 1
+    private const val LEGACY_DEFAULT_PALETTE = "default"
 
-    const val DEFAULT_PALETTE = "default"
     const val SYSTEM_PALETTE = "system"
     const val THEME_SYSTEM = 0
     const val THEME_LIGHT = 1

@@ -50,19 +50,9 @@
             <LinearLayout style="@style/SectionCard">
                 <TextView
                     style="@style/SectionTitle"
-                    android:drawableStart="@drawable/ic_layers"
+                    android:drawableStart="@drawable/ic_accessibility_new"
                     android:text="@string/permissions_title" />
-                <TextView style="@style/FieldLabel" android:text="@string/overlay_permission_title" />
-                <TextView
-                    android:id="@+id/text_overlay_permission"
-                    style="@style/BodyText"
-                    android:text="@string/permission_not_granted" />
-                <Button
-                    android:id="@+id/button_overlay_permission"
-                    style="@style/ActionButton"
-                    android:drawableStart="@drawable/ic_layers"
-                    android:text="@string/open_permission_settings" />
-                <TextView style="@style/FieldLabel" android:text="@string/accessibility_permission_title" />
+                <TextView style="@style/BodyText" android:text="@string/accessibility_permission_note" />
                 <TextView
                     android:id="@+id/text_accessibility_permission"
                     style="@style/BodyText"

@@ -104,16 +104,6 @@ def theme_colors(selected, night):
   raise ValueError(f"No readable accent for {selected}")
 
 
-def app_bar_color(selected):
-  channels = [int(selected[index:index + 2], 16) / 255 for index in (1, 3, 5)]
-  hue, lightness, saturation = colorsys.rgb_to_hls(*channels)
-  for step in range(1001):
-    candidate = color_from_hls(hue, max(0, lightness - step / 1000), saturation)
-    if contrast(candidate, "#FFFFFF") >= 7:
-      return candidate
-  raise ValueError(f"No readable app bar for {selected}")
-
-
 def write(relative, lines):
   path = ROOT / relative
   path.parent.mkdir(parents=True, exist_ok=True)
@@ -139,19 +129,20 @@ def generate():
     for tone, value in colors.items():
       key = identifier(name, tone)
       style = style_name(name, tone)
+      bar_foreground = max(("#000000", "#FFFFFF"), key=lambda color: contrast(color, value))
+      assert contrast(bar_foreground, value) >= 4.5
       colors_xml.append(f'    <color name="material_{key}">{value}</color>')
       kotlin.append(f'    MaterialSwatch("{key}", "{tone}", R.color.material_{key}, R.style.{style.replace(".", "_")}),')
       for night, output in styles.items():
         accent, foreground = theme_colors(value, night)
-        bar = app_bar_color(value)
         items = {
-          "android:colorPrimary": accent,
-          "android:colorPrimaryDark": bar,
+          "android:colorPrimary": f"@color/material_{key}",
+          "android:colorPrimaryDark": f"@color/material_{key}",
           "android:colorAccent": accent,
-          "android:windowLightStatusBar": "false",
-          "color_app_bar": bar,
-          "color_on_app_bar": "@android:color/white",
-          "color_app_bar_ripple": "#33FFFFFF",
+          "android:windowLightStatusBar": str("#000000" == bar_foreground).lower(),
+          "color_app_bar": f"@color/material_{key}",
+          "color_on_app_bar": bar_foreground,
+          "color_app_bar_ripple": "#18000000" if "#000000" == bar_foreground else "#33FFFFFF",
           "color_action": accent,
           "color_button_background": accent,
           "color_on_button": foreground,

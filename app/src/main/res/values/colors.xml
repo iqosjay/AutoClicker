@@ -10,13 +10,13 @@
     <color name="text_primary">#DE000000</color>
     <color name="text_secondary">#99000000</color>
     <color name="text_disabled">#9C9B9F</color>
-    <color name="color_primary">#ffffffff</color>
-    <color name="color_primary_dark">#ffcccccc</color>
-    <color name="color_accent">#ffe91e63</color>
-    <color name="color_action">@color/material_pink_700</color>
-    <color name="on_accent">#000000</color>
+    <color name="color_primary">@color/auto_primary</color>
+    <color name="color_primary_dark">@color/auto_primary</color>
+    <color name="color_accent">@color/auto_primary</color>
+    <color name="color_action">@color/auto_primary</color>
+    <color name="on_accent">@color/auto_on_primary</color>
     <color name="ripple">#18000000</color>
-    <color name="ripple_on_accent">#18000000</color>
+    <color name="ripple_on_accent">@color/auto_ripple</color>
     <color name="danger">#BA1A1A</color>
     <color name="launcher_background">#1C1B1F</color>
 </resources>
