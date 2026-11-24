@@ -1,0 +1,34 @@
+<resources>
+    <style name="Base.Theme.AutoClicker" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorPrimary">@color/color_primary</item>
+        <item name="android:colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="android:colorAccent">@color/color_accent</item>
+        <item name="color_on_primary">@color/text_primary</item>
+        <item name="color_button_background">@color/color_accent</item>
+        <item name="color_on_button">@color/on_accent</item>
+        <item name="color_button_ripple">@color/ripple_on_accent</item>
+        <item name="android:windowBackground">@color/page_background</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/black</item>
+    </style>
+
+    <style name="Theme.AutoClicker" parent="Base.Theme.AutoClicker" />
+
+    <style name="Base.Theme.AutoClicker.Dialog" parent="android:style/Theme.Material.Dialog.Alert">
+        <item name="android:colorPrimary">@color/color_primary</item>
+        <item name="android:colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="android:colorAccent">@color/color_accent</item>
+        <item name="color_on_primary">@color/text_primary</item>
+        <item name="color_button_background">@color/color_accent</item>
+        <item name="color_on_button">@color/on_accent</item>
+        <item name="color_button_ripple">@color/ripple_on_accent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/background_dialog</item>
+        <item name="android:windowMinWidthMajor">0dp</item>
+        <item name="android:windowMinWidthMinor">0dp</item>
+    </style>
+
+    <style name="Theme.AutoClicker.Dialog" parent="Base.Theme.AutoClicker.Dialog" />
+</resources>

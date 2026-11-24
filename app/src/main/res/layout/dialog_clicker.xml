@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/space_large">
+
+    <TextView
+        android:id="@+id/dialog_title"
+        style="@style/SectionTitle" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/space_medium"
+        android:clipToPadding="false">
+        <FrameLayout
+            android:id="@+id/dialog_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_medium"
+        android:gravity="end"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/dialog_cancel"
+            style="@style/DialogButton"
+            android:layout_marginEnd="@dimen/space_small"
+            android:text="@string/cancel" />
+        <Button
+            android:id="@+id/dialog_confirm"
+            style="@style/DialogButton"
+            android:text="@string/got_it" />
+    </LinearLayout>
+</LinearLayout>

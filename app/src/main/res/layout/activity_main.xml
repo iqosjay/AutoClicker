@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.roy.autoclicker.widget.ScreenLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_background"
+    android:orientation="vertical">
+
+    <com.roy.autoclicker.widget.Actionbar
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height"
+        android:elevation="4dp"
+        app:actionbar_title="@string/screen_title" />
+
+    <ScrollView
+        android:id="@+id/content_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/space_medium"
+            android:paddingEnd="@dimen/space_medium"
+            android:paddingBottom="@dimen/space_large">
+
+            <TextView
+                style="@style/BodyText"
+                android:text="@string/screen_subtitle"
+                android:textSize="@dimen/text_button" />
+
+            <LinearLayout style="@style/SectionCard">
+                <TextView
+                    style="@style/SectionTitle"
+                    android:drawableStart="@drawable/ic_check_circle"
+                    android:text="@string/status_title" />
+                <TextView
+                    android:id="@+id/text_status"
+                    style="@style/BodyText"
+                    android:accessibilityLiveRegion="polite"
+                    android:text="@string/status_idle" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/SectionCard">
+                <TextView
+                    style="@style/SectionTitle"
+                    android:drawableStart="@drawable/ic_layers"
+                    android:text="@string/permissions_title" />
+                <TextView style="@style/FieldLabel" android:text="@string/overlay_permission_title" />
+                <TextView
+                    android:id="@+id/text_overlay_permission"
+                    style="@style/BodyText"
+                    android:text="@string/permission_not_granted" />
+                <Button
+                    android:id="@+id/button_overlay_permission"
+                    style="@style/ActionButton"
+                    android:drawableStart="@drawable/ic_layers"
+                    android:text="@string/open_permission_settings" />
+                <TextView style="@style/FieldLabel" android:text="@string/accessibility_permission_title" />
+                <TextView
+                    android:id="@+id/text_accessibility_permission"
+                    style="@style/BodyText"
+                    android:text="@string/service_not_connected" />
+                <Button
+                    android:id="@+id/button_accessibility"
+                    style="@style/ActionButton"
+                    android:drawableStart="@drawable/ic_accessibility_new"
+                    android:text="@string/open_accessibility_settings" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/button_stop"
+                    style="@style/ActionButton"
+                    android:layout_width="0dp"
+                    android:layout_marginEnd="@dimen/space_small"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_stop"
+                    android:drawableTint="@color/button_text_danger"
+                    android:enabled="false"
+                    android:text="@string/stop_now"
+                    android:textColor="@color/button_text_danger" />
+                <Button
+                    android:id="@+id/button_hide"
+                    style="@style/ActionButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_close"
+                    android:enabled="false"
+                    android:text="@string/hide_controls" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button_show"
+        style="@style/PrimaryButton"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginStart="@dimen/space_medium"
+        android:layout_marginTop="@dimen/space_medium"
+        android:layout_marginEnd="@dimen/space_medium"
+        android:drawableStart="@drawable/ic_play_arrow"
+        android:text="@string/show_controls" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_medium"
+        android:layout_marginTop="@dimen/space_small"
+        android:layout_marginEnd="@dimen/space_medium"
+        android:layout_marginBottom="@dimen/space_medium"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="@string/start_hint"
+        android:textColor="@color/text_secondary"
+        android:textSize="@dimen/text_caption" />
+</com.roy.autoclicker.widget.ScreenLayout>

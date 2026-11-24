@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView style="@style/FieldLabel" android:layout_marginTop="0dp" android:text="@string/permissions_title" />
+    <TextView style="@style/BodyText" android:text="@string/help_permissions_body" />
+    <TextView style="@style/FieldLabel" android:text="@string/usage_title" />
+    <TextView style="@style/BodyText" android:text="@string/usage_body" />
+    <TextView style="@style/FieldLabel" android:text="@string/stop_title" />
+    <TextView style="@style/BodyText" android:text="@string/stop_body" />
+</LinearLayout>

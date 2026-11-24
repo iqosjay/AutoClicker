@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="page_background">#FFFFFF</color>
+    <color name="panel_background">#F5F5F5</color>
+    <color name="input_background">#EAEAEA</color>
+    <color name="text_primary">#1C1B1F</color>
+    <color name="text_secondary">#626166</color>
+    <color name="text_disabled">#9C9B9F</color>
+    <color name="color_primary">#ffffffff</color>
+    <color name="color_primary_dark">#ffcccccc</color>
+    <color name="color_accent">#ffe91e63</color>
+    <color name="on_accent">#FFFFFF</color>
+    <color name="ripple">#18000000</color>
+    <color name="ripple_on_accent">#30FFFFFF</color>
+    <color name="danger">#BA1A1A</color>
+    <color name="launcher_background">#1C1B1F</color>
+</resources>

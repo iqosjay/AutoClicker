@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="page_background">#121214</color>
+    <color name="panel_background">#202024</color>
+    <color name="input_background">#303034</color>
+    <color name="text_primary">#E6E1E5</color>
+    <color name="text_secondary">#C7C5CA</color>
+    <color name="text_disabled">#77757B</color>
+    <color name="color_primary">#ff121214</color>
+    <color name="color_primary_dark">#ff202024</color>
+    <color name="color_accent">#fff48fb1</color>
+    <color name="on_accent">#1C1B1F</color>
+    <color name="ripple">#28FFFFFF</color>
+    <color name="ripple_on_accent">#20000000</color>
+    <color name="danger">#FFB4AB</color>
+</resources>
