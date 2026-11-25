@@ -58,7 +58,7 @@
 
 ## 构建
 
-工程使用 Kotlin、Android 原生 XML、Activity、自定义 View 和 Drawable，不依赖 AndroidX、Compose、Material Components、JHGK_LIBS 或其他应用开发框架。
+工程使用 Kotlin、Android 原生 XML、Activity、自定义 View 和 Drawable，不依赖 AndroidX、Compose、Material Components 或其他应用开发框架。
 
 构建环境：
 
